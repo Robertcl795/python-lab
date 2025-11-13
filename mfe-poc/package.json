@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "pnpm run dev:remotes && pnpm run dev:shell",
+    "dev": "nx run-many --target=serve --projects=editor,movies,shell --parallel=3",
     "dev:shell": "nx serve shell --port=4200",
     "dev:editor": "nx serve editor --port=4201",
     "dev:movies": "nx serve movies --port=4202",
@@ -18,8 +18,8 @@
   },
   "private": true,
   "devDependencies": {
-    "@angular-architects/module-federation": "^20.0.0",
-    "@angular-architects/native-federation": "^20.1.7",
+    "@angular-architects/module-federation": "19.0.3",
+    "@angular-architects/native-federation": "19.0.23",
     "@angular-devkit/build-angular": "^19.2.19",
     "@angular-devkit/core": "^19.2.19",
     "@angular-devkit/schematics": "^19.2.19",

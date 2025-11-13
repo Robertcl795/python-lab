@@ -4,18 +4,8 @@
 // Include the common styles for Angular Material
 @include mat.core();
 
-// Define a custom theme
-$mfe-primary: mat.define-palette(mat.$blue-palette);
-$mfe-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-$mfe-warn: mat.define-palette(mat.$red-palette);
-
-$mfe-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: $mfe-primary,
-    tertiary: $mfe-accent,
-  ),
-));
+// Define Material 3 theme with simplified syntax
+$mfe-theme: mat.define-theme();
 
 // Apply the theme
 html {

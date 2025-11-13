@@ -17,7 +17,10 @@ module.exports = withNativeFederation({
     'rxjs/fetch',
     'rxjs/testing',
     'rxjs/webSocket',
-    // Add further packages you don't need at runtime
+    '@angular/common/locales/**',
+    '@angular/common/locales',
+    'monaco-editor',
+    'ngx-monaco-editor-v2',
   ],
 
   // Please read our FAQ about sharing libs:
@@ -29,5 +32,5 @@ module.exports = withNativeFederation({
     // get the traditional behavior:
     ignoreUnusedDeps: true
   }
-  
+
 });

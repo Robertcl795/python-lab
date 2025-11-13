@@ -81,10 +81,7 @@
         ],
         "styles": [
           "apps/shell/src/styles.scss"
-        ],
-        "customWebpackConfig": {
-          "path": "apps/shell/webpack.config.ts"
-        }
+        ]
       },
       "configurations": {
         "production": {
