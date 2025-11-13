@@ -18,17 +18,17 @@ mfe-poc/
 ## 🚀 Features
 
 - **Angular 19** with standalone components
-- **Native Federation** for micro-frontend architecture
+- **Native Federation 19.0.23** for micro-frontend architecture (Angular 19 compatible)
 - **Material Design** UI components shared across all apps
 - **Fast esbuild** bundler for quick development
 - **PNPM** for efficient package management
-- **Concurrent development** of all apps
+- **Concurrent development** of all apps in ~10 seconds
 
 ## 🛠️ Technical Stack
 
 - Angular 19.2.15
 - Angular Material 19.2.19
-- @angular-architects/native-federation 20.1.7
+- @angular-architects/native-federation 19.0.23
 - esbuild (via @angular/build)
 - PNPM 10.x
 - NX 22.0.3 (for task orchestration)
@@ -42,14 +42,16 @@ pnpm install
 
 ## 🎯 Development Scripts
 
-### Start all apps concurrently
+### Start all apps concurrently (recommended)
 ```bash
 pnpm run dev
 ```
-This starts:
+This starts all 3 apps in parallel:
 - Editor remote on http://localhost:4201
 - Movies remote on http://localhost:4202
 - Shell app on http://localhost:4200
+
+**Build time:** ~3 seconds per app, ~10 seconds total
 
 ### Start individual apps
 ```bash
@@ -157,33 +159,50 @@ Global Material theme: `apps/shell/src/styles.scss`
 
 ## 🐛 Troubleshooting
 
-### Native Federation Build Errors
+### Version Compatibility
+
+**Important:** This project uses Native Federation **19.0.23** (not 20.x) for Angular 19 compatibility.
+
+If you encounter version mismatch errors:
+```bash
+# Verify correct versions are installed
+pnpm list @angular-architects/native-federation
+# Should show: 19.0.23
+
+pnpm list @angular-architects/module-federation
+# Should show: 19.0.3
+```
+
+### Build Issues
 
 If you encounter "Error building federation artefacts":
 
 1. Reset NX cache:
    ```bash
-   pnpm nx reset
+   cd mfe-poc && pnpm nx reset
    ```
 
-2. Clean node_modules and reinstall:
+2. Clean and reinstall:
    ```bash
    rm -rf node_modules pnpm-lock.yaml
    pnpm install
    ```
 
-3. Check that `@softarc/native-federation-runtime` is installed
+3. Verify skip configuration in federation.config.js includes:
+   - `monaco-editor`
+   - `ngx-monaco-editor-v2`
+   - `@angular/common/locales/**`
 
-### Alternative: Direct esbuild Serve
+### Material Theming Issues
 
-If federation build fails, you can run apps independently:
-```bash
-pnpm nx run editor:serve-original
-pnpm nx run movies:serve-original
-pnpm nx run shell:serve-original
+If you see Sass errors about `mat.define-palette`:
+
+The project uses Material 3's simplified theming:
+```scss
+$mfe-theme: mat.define-theme();
 ```
 
-Note: This won't include federation features.
+Not Material 2's palette system (which is deprecated in Angular 19).
 
 ## 🚀 Why This Architecture?
 
