@@ -1,0 +1,127 @@
+{
+  "name": "editor",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/remotes/editor/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {},
+      "configurations": {
+        "production": {
+          "target": "editor:esbuild:production"
+        },
+        "development": {
+          "target": "editor:esbuild:development",
+          "dev": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-architects/native-federation:build",
+      "options": {
+        "target": "editor:serve-original:development",
+        "rebuildDelay": 0,
+        "dev": true,
+        "port": 0
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "editor:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "apps/remotes/editor/jest.config.ts",
+        "tsConfig": "apps/remotes/editor/tsconfig.spec.json"
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "editor:build",
+        "port": 4201,
+        "staticFilePath": "dist/apps/remotes/editor/browser",
+        "spa": true
+      }
+    },
+    "esbuild": {
+      "executor": "@angular/build:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/remotes/editor",
+        "index": "apps/remotes/editor/src/index.html",
+        "browser": "apps/remotes/editor/src/main.ts",
+        "polyfills": [
+          "zone.js",
+          "es-module-shims"
+        ],
+        "tsConfig": "apps/remotes/editor/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/remotes/editor/public"
+          }
+        ],
+        "styles": [
+          "apps/remotes/editor/src/styles.scss"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-original": {
+      "continuous": true,
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "port": 4201
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "editor:esbuild:production"
+        },
+        "development": {
+          "buildTarget": "editor:esbuild:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    }
+  }
+}

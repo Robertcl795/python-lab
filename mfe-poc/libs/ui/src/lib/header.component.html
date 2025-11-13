@@ -1,0 +1,8 @@
+<mat-toolbar color="primary">
+  @if (icon()) {
+    <mat-icon>{{ icon() }}</mat-icon>
+  }
+  <span class="title">{{ title() }}</span>
+  <span class="spacer"></span>
+  <ng-content></ng-content>
+</mat-toolbar>

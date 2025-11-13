@@ -1,0 +1,20 @@
+<lib-header [title]="'Movie Catalog'" [icon]="'movie'">
+  <lib-button [label]="'Add Movie'" [icon]="'add'" (clicked)="addMovie()"></lib-button>
+</lib-header>
+
+<div class="movie-grid">
+  @for (movie of movies(); track movie.id) {
+    <lib-card [title]="movie.title" [subtitle]="movie.year.toString()">
+      <p><strong>Genre:</strong> {{ movie.genre }}</p>
+      <p><strong>Rating:</strong> {{ movie.rating }}/10</p>
+      <div class="card-actions">
+        <lib-button
+          [label]="'Remove'"
+          [color]="'warn'"
+          [icon]="'delete'"
+          (clicked)="removeMovie(movie.id)">
+        </lib-button>
+      </div>
+    </lib-card>
+  }
+</div>

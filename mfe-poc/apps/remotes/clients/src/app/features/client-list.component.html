@@ -1,0 +1,20 @@
+<lib-header [title]="'Client Management'" [icon]="'people'">
+  <lib-button [label]="'Add Client'" [icon]="'add'" (clicked)="addClient()"></lib-button>
+</lib-header>
+
+<div class="client-grid">
+  @for (client of clients(); track client.id) {
+    <lib-card [title]="client.name" [subtitle]="client.company">
+      <p><strong>Email:</strong> {{ client.email }}</p>
+      <p><strong>Company:</strong> {{ client.company }}</p>
+      <div class="card-actions">
+        <lib-button
+          [label]="'Remove'"
+          [color]="'warn'"
+          [icon]="'delete'"
+          (clicked)="removeClient(client.id)">
+        </lib-button>
+      </div>
+    </lib-card>
+  }
+</div>

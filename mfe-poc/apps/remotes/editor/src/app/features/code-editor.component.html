@@ -1,0 +1,19 @@
+<lib-header [title]="'Code Editor'" [icon]="'code'">
+  <div class="header-actions">
+    <select [(ngModel)]="selectedLanguage" (change)="changeLanguage(selectedLanguage())" class="language-select">
+      @for (lang of languages; track lang) {
+        <option [value]="lang">{{ lang }}</option>
+      }
+    </select>
+    <lib-button [label]="'Format'" [icon]="'format_align_left'" (clicked)="formatCode()"></lib-button>
+    <lib-button [label]="'Run'" [icon]="'play_arrow'" [color]="'accent'" (clicked)="runCode()"></lib-button>
+  </div>
+</lib-header>
+
+<div class="editor-container">
+  <ngx-monaco-editor
+    [(ngModel)]="code"
+    [options]="editorOptions"
+    class="monaco-editor">
+  </ngx-monaco-editor>
+</div>

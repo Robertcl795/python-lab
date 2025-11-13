@@ -1,0 +1,10 @@
+<button
+  mat-raised-button
+  [color]="color()"
+  [disabled]="disabled()"
+  (click)="handleClick()">
+  @if (icon()) {
+    <mat-icon>{{ icon() }}</mat-icon>
+  }
+  {{ label() }}
+</button>

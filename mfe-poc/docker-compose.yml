@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # Shell (Host) Application
+  shell:
+    build:
+      context: .
+      dockerfile: apps/shell/Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - editor
+      - clients
+      - movies
+    networks:
+      - mfe-network
+    environment:
+      - NODE_ENV=production
+
+  # Editor Remote Application
+  editor:
+    build:
+      context: .
+      dockerfile: apps/remotes/editor/Dockerfile
+    ports:
+      - "4201:80"
+    networks:
+      - mfe-network
+    environment:
+      - NODE_ENV=production
+
+  # Clients Remote Application
+  clients:
+    build:
+      context: .
+      dockerfile: apps/remotes/clients/Dockerfile
+    ports:
+      - "4202:80"
+    networks:
+      - mfe-network
+    environment:
+      - NODE_ENV=production
+
+  # Movies Remote Application
+  movies:
+    build:
+      context: .
+      dockerfile: apps/remotes/movies/Dockerfile
+    ports:
+      - "4203:80"
+    networks:
+      - mfe-network
+    environment:
+      - NODE_ENV=production
+
+networks:
+  mfe-network:
+    driver: bridge
