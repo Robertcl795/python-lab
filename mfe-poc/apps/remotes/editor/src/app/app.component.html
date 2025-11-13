@@ -1,2 +1,17 @@
-<app-nx-welcome></app-nx-welcome>
+<div class="editor-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ title }}</mat-card-title>
+      <mat-card-subtitle>A simple text editor micro-frontend</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <textarea
+        class="code-editor"
+        [(ngModel)]="editorContent"
+        spellcheck="false"
+        placeholder="Start typing..."
+      ></textarea>
+    </mat-card-content>
+  </mat-card>
+</div>
 <router-outlet></router-outlet>

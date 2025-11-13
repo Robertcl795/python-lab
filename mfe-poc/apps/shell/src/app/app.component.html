@@ -1,13 +1,29 @@
-<nav class="navbar">
-  <div class="nav-brand">
-    <h1>Angular MFE POC</h1>
-  </div>
-  <ul class="nav-menu">
-    <li><a routerLink="/clients" routerLinkActive="active">Clients</a></li>
-    <li><a routerLink="/movies" routerLinkActive="active">Movies</a></li>
-    <li><a routerLink="/editor" routerLinkActive="active">Editor</a></li>
-  </ul>
-</nav>
-<main class="content">
-  <router-outlet></router-outlet>
-</main>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>{{ title }}</span>
+</mat-toolbar>
+
+<mat-drawer-container class="container">
+  <mat-drawer #drawer mode="side" opened class="sidenav">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </a>
+      <a mat-list-item routerLink="/editor" routerLinkActive="active">
+        <mat-icon>edit</mat-icon>
+        <span>Editor</span>
+      </a>
+      <a mat-list-item routerLink="/movies" routerLinkActive="active">
+        <mat-icon>movie</mat-icon>
+        <span>Movies</span>
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <mat-drawer-content class="content">
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
